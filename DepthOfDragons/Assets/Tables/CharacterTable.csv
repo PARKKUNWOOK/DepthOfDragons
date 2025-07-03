@@ -1,0 +1,6 @@
+Key,Class,Type,StartLevel,StartExp,StartSkillPoint,StartHp,StartMp,StartGold,StartAttackPower,StartMagicPower,MaxExp,MaxLevel
+1,Knight,Melee,1,0,0,12,7,0,8,4,50,50
+2,Barbarian,Melee,1,0,0,10,5,0,10,4,50,50
+3,Gunner,Ranged,1,0,0,8,11,0,12,4,50,50
+4,Sorcerer,Ranged,1,0,0,6,13,0,4,14,50,50
+5,Bishop,Ranged,1,0,0,7,12,0,4,13,50,50
