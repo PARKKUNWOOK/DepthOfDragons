@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "519726987757",
+    "firebase_url": "https://depthofdragons-default-rtdb.firebaseio.com",
+    "project_id": "depthofdragons",
+    "storage_bucket": "depthofdragons.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:519726987757:android:8dfa1cad859382b331cfe4",
+        "android_client_info": {
+          "package_name": "com.DepthOfDragons.RPG"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdFmcVm9zre5pDINcNzzCl81XEZ_OoUgI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
