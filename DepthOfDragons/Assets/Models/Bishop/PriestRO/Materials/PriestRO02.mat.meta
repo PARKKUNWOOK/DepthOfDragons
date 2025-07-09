@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 8a498cf8a7434f442a9dda43e8e76660
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165216
+  packageName: PriestRO
+  packageVersion: 1.0
+  assetPath: Assets/Hit/PriestRO/Materials/PriestRO02.mat
+  uploadId: 533607

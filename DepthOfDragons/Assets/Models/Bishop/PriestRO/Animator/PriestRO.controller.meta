@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: b0a2503a820ec3d458d9412f1148a71c
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 165216
+  packageName: PriestRO
+  packageVersion: 1.0
+  assetPath: Assets/Hit/PriestRO/Animator/PriestRO.controller
+  uploadId: 533607
