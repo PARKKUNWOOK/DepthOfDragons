@@ -21,6 +21,8 @@ public class CharacterCreationManager : MonoBehaviour
     private string _selectedClassName = "";
     private int _selectedSlotIndex = -1;
 
+    private readonly Queue<System.Action> _mainThreadQueue = new Queue<System.Action>();
+
     public void SetSelectedSlot(int index)
     {
         _selectedSlotIndex = index;
@@ -56,11 +58,38 @@ public class CharacterCreationManager : MonoBehaviour
         _nickNameDuplicateCheckButton = GameObject.Find("Canvas/NickNameDuplicateCheckButton").GetComponent<Button>();
         _nickNameDuplicateCheckText = GameObject.Find("Canvas/NickNameInputField/NickNameDuplicateCheckText").GetComponent<TextMeshProUGUI>();
         _createButton = GameObject.Find("Canvas/CreateButton").GetComponent<Button>();
+        _createButton.interactable = false;
 
         _nickNameDuplicateCheckButton.onClick.AddListener(OnClickNickNameCheck);
-        _createButton.interactable = false;
         _createButton.onClick.AddListener(OnClickCreateCharacter);
+
+
         _selectedSlotIndex = PlayerPrefs.GetInt("SelectedSlotIndex", -1);
+        _nickNameInputField.text = "";
+        _nickNameDuplicateCheckText.text = "";
+        OnSelectClass("Knight");
+
+        GameObject.Find("LobbyButton").GetComponent<Button>().onClick.AddListener(() =>
+        {
+            SceneManager.LoadScene("LobbyScene");
+        });
+    }
+
+    private void Update()
+    {
+        while (_mainThreadQueue.Count > 0)
+        {
+            var action = _mainThreadQueue.Dequeue();
+            action?.Invoke();
+        }
+    }
+
+    private void RunOnMainThread(System.Action action)
+    {
+        lock (_mainThreadQueue)
+        {
+            _mainThreadQueue.Enqueue(action);
+        }
     }
 
     private void LoadClassPrefabs()
@@ -112,22 +141,25 @@ public class CharacterCreationManager : MonoBehaviour
             return;
         }
 
-        FirebaseAuthManager.Instance.CheckIDDuplicate(nickName, (isDuplicate) =>
+        FirebaseAuthManager.Instance.CheckNickNameDuplicate(nickName, (isDuplicate) =>
         {
-            if (isDuplicate)
+            RunOnMainThread(() =>
             {
-                _nickNameDuplicateCheckText.text = "중복된 닉네임입니다.";
-                _nickNameDuplicateCheckText.color = Color.red;
-                _isNicknameAvailable = false;
-            }
-            else
-            {
-                _nickNameDuplicateCheckText.text = "사용가능한 닉네임입니다.";
-                _nickNameDuplicateCheckText.color = Color.green;
-                _isNicknameAvailable = true;
-            }
+                if (isDuplicate)
+                {
+                    _nickNameDuplicateCheckText.text = "중복된 닉네임입니다.";
+                    _nickNameDuplicateCheckText.color = Color.red;
+                    _isNicknameAvailable = false;
+                }
+                else
+                {
+                    _nickNameDuplicateCheckText.text = "사용가능한 닉네임입니다.";
+                    _nickNameDuplicateCheckText.color = Color.green;
+                    _isNicknameAvailable = true;
+                }
 
-            _createButton.interactable = _isNicknameAvailable;
+                _createButton.interactable = _isNicknameAvailable;
+            });
         });
     }
 

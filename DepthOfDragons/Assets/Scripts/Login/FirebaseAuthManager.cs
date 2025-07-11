@@ -128,6 +128,46 @@ public class FirebaseAuthManager
         }
     }
 
+    public void CheckNickNameDuplicate(string nicknameToCheck, Action<bool> onCheckComplete)
+    {
+        if (!_firebaseInitialized || string.IsNullOrEmpty(nicknameToCheck))
+        {
+            onCheckComplete?.Invoke(false);
+            return;
+        }
+
+        _dbRef.Child("Users").GetValueAsync().ContinueWith(task =>
+        {
+            if (task.IsCompletedSuccessfully)
+            {
+                DataSnapshot usersSnapshot = task.Result;
+
+                foreach (var user in usersSnapshot.Children)
+                {
+                    foreach (var slot in user.Children)
+                    {
+                        if (slot.HasChild("NickName"))
+                        {
+                            string savedNick = slot.Child("NickName").Value.ToString();
+                            if (savedNick == nicknameToCheck)
+                            {
+                                onCheckComplete?.Invoke(true); // 중복
+                                return;
+                            }
+                        }
+                    }
+                }
+
+                onCheckComplete?.Invoke(false); // 중복 없음
+            }
+            else
+            {
+                Debug.LogError("닉네임 중복 확인 실패: " + task.Exception);
+                onCheckComplete?.Invoke(false);
+            }
+        });
+    }
+
     public void Create(string id, string password, Action onSuccess = null)
     {
         if (!_firebaseInitialized)

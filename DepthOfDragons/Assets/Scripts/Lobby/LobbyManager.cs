@@ -150,14 +150,47 @@ public class LobbyManager : MonoBehaviour
 
     private void OnClickDeleteCharacter()
     {
-        if (_selectedSlotIndex != -1 && _isCharacterCreated[_selectedSlotIndex])
+        if (_selectedSlotIndex == -1 || !_isCharacterCreated[_selectedSlotIndex])
         {
-            Debug.Log($"캐릭터 삭제: 슬롯 {_selectedSlotIndex + 1}");
-
-            _isCharacterCreated[_selectedSlotIndex] = false;
-            _textMeshProUGUIs[_selectedSlotIndex].text = "캐릭터 생성";
-            _selectedSlotIndex = -1;
+            Debug.LogWarning("삭제할 캐릭터가 없습니다.");
+            return;
         }
+
+        Debug.Log($"캐릭터 삭제 요청: 슬롯 {_selectedSlotIndex + 1}");
+
+        // 1. UI 업데이트
+        _isCharacterCreated[_selectedSlotIndex] = false;
+        _textMeshProUGUIs[_selectedSlotIndex].text = "캐릭터 생성";
+
+        // 2. 슬롯에 존재하는 캐릭터 프리팹 제거
+        GameObject slotPos = GameObject.Find($"SlotCharacterPositions/Slot{_selectedSlotIndex + 1}CharacterPos");
+        if (slotPos != null && slotPos.transform.childCount > 0)
+        {
+            for (int i = 0; i < slotPos.transform.childCount; i++)
+            {
+                Destroy(slotPos.transform.GetChild(i).gameObject);
+            }
+        }
+
+        // 3. Firebase에서 슬롯 데이터 삭제
+        string uid = FirebaseAuthManager.Instance.UserId;
+        if (!string.IsNullOrEmpty(uid))
+        {
+            string slotPath = $"Users/{uid}/Slot{_selectedSlotIndex}";
+            FirebaseDatabase.DefaultInstance.RootReference.Child(slotPath).RemoveValueAsync().ContinueWith(task =>
+            {
+                if (task.IsCompletedSuccessfully)
+                {
+                    Debug.Log($"[Firebase] 슬롯 {_selectedSlotIndex} 데이터 삭제 완료");
+                }
+                else
+                {
+                    Debug.LogError($"[Firebase] 슬롯 {_selectedSlotIndex} 삭제 실패: {task.Exception}");
+                }
+            });
+        }
+
+        _selectedSlotIndex = -1; // 선택 해제
     }
 
     private void OnClickGameStart()
