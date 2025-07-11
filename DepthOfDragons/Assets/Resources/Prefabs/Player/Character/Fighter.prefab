@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: c4d803b1fc84628429af3dbe5d25dafc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.15
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c4d803b1fc84628429af3dbe5d25dafc, type: 3}
       propertyPath: m_LocalPosition.y
@@ -18,11 +18,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c4d803b1fc84628429af3dbe5d25dafc, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.77
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c4d803b1fc84628429af3dbe5d25dafc, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c4d803b1fc84628429af3dbe5d25dafc, type: 3}
       propertyPath: m_LocalRotation.x
@@ -30,7 +30,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c4d803b1fc84628429af3dbe5d25dafc, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c4d803b1fc84628429af3dbe5d25dafc, type: 3}
       propertyPath: m_LocalRotation.z
@@ -42,7 +42,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c4d803b1fc84628429af3dbe5d25dafc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c4d803b1fc84628429af3dbe5d25dafc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -66,7 +66,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 46ab4fc8a33f53d4da9f1b2884fc936b, type: 2}
     - target: {fileID: 919132149155446097, guid: c4d803b1fc84628429af3dbe5d25dafc, type: 3}
       propertyPath: m_Name
-      value: Barbarian
+      value: Fighter
       objectReference: {fileID: 0}
     - target: {fileID: 1130629136877428748, guid: c4d803b1fc84628429af3dbe5d25dafc, type: 3}
       propertyPath: m_Materials.Array.size

@@ -1,0 +1,6 @@
+Key,Class,StartLevel,StartExp,StartSkillPoint,StartHp,StartMp,StartGold,StartAttackPower,MaxExp,MaxLevel
+1,Knight,1,0,0,12,7,0,8,50,50
+2,Fighter,1,0,0,10,5,0,10,50,50
+3,Gunner,1,0,0,8,11,0,12,50,50
+4,Sorcerer,1,0,0,6,13,0,14,50,50
+5,Bishop,1,0,0,7,12,0,13,50,50
