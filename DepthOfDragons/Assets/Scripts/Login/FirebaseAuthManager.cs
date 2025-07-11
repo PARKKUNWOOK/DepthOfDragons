@@ -162,7 +162,7 @@ public class FirebaseAuthManager
             }
             else
             {
-                Debug.LogError("닉네임 중복 확인 실패: " + task.Exception);
+                //Debug.LogError("닉네임 중복 확인 실패: " + task.Exception);
                 onCheckComplete?.Invoke(false);
             }
         });

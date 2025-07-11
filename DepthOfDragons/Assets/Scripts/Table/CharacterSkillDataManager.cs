@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public struct CharacterSkillData
 {
@@ -39,11 +40,10 @@ public class CharacterSkillDataManager : MonoBehaviour
 
         if (textAsset == null)
         {
-            Debug.LogError("CharacterSkillTable.csv not found in Resources/Tables folder.");
             return;
         }
 
-        string[] rowData = textAsset.text.Split(new[] { "\r\n", "\n" }, System.StringSplitOptions.RemoveEmptyEntries);
+        string[] rowData = textAsset.text.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
         for (int i = 1; i < rowData.Length; i++)
         {
@@ -66,7 +66,5 @@ public class CharacterSkillDataManager : MonoBehaviour
 
             _skillDataDict[data.Key] = data;
         }
-
-        Debug.Log($"CharacterSkillTable Loaded: {_skillDataDict.Count} entries");
     }
 }

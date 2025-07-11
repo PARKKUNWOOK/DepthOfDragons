@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public struct CharacterData
 {
@@ -7,7 +8,7 @@ public struct CharacterData
     public string Class;
     public int StartLevel;
     public int StartExp;
-    public int StartSkillPt;
+    public int StartSkillPoint;
     public int StartHp;
     public int StartMp;
     public int StartGold;
@@ -40,11 +41,10 @@ public class CharacterDataManager : MonoBehaviour
 
         if (textAsset == null)
         {
-            Debug.LogError("CharacterTable.csv not found in Resources/Tables folder.");
             return;
         }
 
-        string[] rowData = textAsset.text.Split(new[] { "\r\n", "\n" }, System.StringSplitOptions.RemoveEmptyEntries);
+        string[] rowData = textAsset.text.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
         for (int i = 1; i < rowData.Length; i++)
         {
@@ -58,7 +58,7 @@ public class CharacterDataManager : MonoBehaviour
             data.Class = colData[1];
             data.StartLevel = int.Parse(colData[2]);
             data.StartExp = int.Parse(colData[3]);
-            data.StartSkillPt = int.Parse(colData[4]);
+            data.StartSkillPoint = int.Parse(colData[4]);
             data.StartHp = int.Parse(colData[5]);
             data.StartMp = int.Parse(colData[6]);
             data.StartGold = int.Parse(colData[7]);
@@ -68,7 +68,5 @@ public class CharacterDataManager : MonoBehaviour
 
             _characterDataDict[data.Key] = data;
         }
-
-        Debug.Log($"CharacterTable Loaded: {_characterDataDict.Count} entries");
     }
 }

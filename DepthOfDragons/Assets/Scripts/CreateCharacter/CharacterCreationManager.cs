@@ -4,6 +4,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
+using System.Reflection;
 
 public class CharacterCreationManager : MonoBehaviour
 {
@@ -21,7 +23,7 @@ public class CharacterCreationManager : MonoBehaviour
     private string _selectedClassName = "";
     private int _selectedSlotIndex = -1;
 
-    private readonly Queue<System.Action> _mainThreadQueue = new Queue<System.Action>();
+    private readonly Queue<Action> _mainThreadQueue = new Queue<Action>();
 
     public void SetSelectedSlot(int index)
     {
@@ -84,7 +86,7 @@ public class CharacterCreationManager : MonoBehaviour
         }
     }
 
-    private void RunOnMainThread(System.Action action)
+    private void RunOnMainThread(Action action)
     {
         lock (_mainThreadQueue)
         {
@@ -184,7 +186,7 @@ public class CharacterCreationManager : MonoBehaviour
 
         //비동기 Firebase 저장 시작
         CharacterData? characterData = null;
-        foreach (var kvp in CharacterDataManager.Instance.GetType().GetField("_characterDataDict", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(CharacterDataManager.Instance) as Dictionary<int, CharacterData>)
+        foreach (var kvp in CharacterDataManager.Instance.GetType().GetField("_characterDataDict", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(CharacterDataManager.Instance) as Dictionary<int, CharacterData>)
         {
             if (kvp.Value.Class == _selectedClassName)
             {
@@ -216,7 +218,7 @@ public class CharacterCreationManager : MonoBehaviour
         {
             { "Level", characterData.Value.StartLevel },
             { "Exp", characterData.Value.StartExp },
-            { "SkillPoint", characterData.Value.StartSkillPt },
+            { "SkillPoint", characterData.Value.StartSkillPoint },
             { "Hp", characterData.Value.StartHp },
             { "Mp", characterData.Value.StartMp },
             { "Gold", characterData.Value.StartGold },
@@ -229,7 +231,7 @@ public class CharacterCreationManager : MonoBehaviour
         // 3단계: 스킬 저장
         Dictionary<string, object> skillDict = new Dictionary<string, object>();
 
-        foreach (var kvp in CharacterSkillDataManager.Instance.GetType().GetField("_skillDataDict", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(CharacterSkillDataManager.Instance) as Dictionary<int, CharacterSkillData>)
+        foreach (var kvp in CharacterSkillDataManager.Instance.GetType().GetField("_skillDataDict", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(CharacterSkillDataManager.Instance) as Dictionary<int, CharacterSkillData>)
         {
             int skillKey = kvp.Key;
             CharacterSkillData skillData = kvp.Value;
