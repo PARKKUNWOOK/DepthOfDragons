@@ -15,9 +15,6 @@ EditorBuildSettings:
     path: Assets/Scenes/CreateCharacterScene.unity
     guid: 031d34f3ef3e5ab4594fe7cafdbb229e
   - enabled: 1
-    path: Assets/Scenes/BravemarchScene.unity
-    guid: ba7f3a7ca257f6244bdf04062b985a89
-  - enabled: 1
     path: Assets/Scenes/DungeonF1Scene.unity
     guid: 5d4e460395fc5d447bd0498315835723
   m_configObjects:

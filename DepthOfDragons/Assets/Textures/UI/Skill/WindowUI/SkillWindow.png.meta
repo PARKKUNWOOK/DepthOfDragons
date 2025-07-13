@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5c23dfc96cc237742bc3b6821253fe1c
+guid: 4de343c3375864048928f6258ef23496
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -108,7 +108,51 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: SkillWindow_1
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 97
+        width: 708
+        height: 970
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f25bad623577d204f84b5204eef8e617
+      internalID: -1650491107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkillWindow_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 853
+        height: 1280
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c793edcfa2bd19146be7ed8584162c38
+      internalID: -716636944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -122,7 +166,9 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      SkillWindow_0: -716636944
+      SkillWindow_1: -1650491107
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

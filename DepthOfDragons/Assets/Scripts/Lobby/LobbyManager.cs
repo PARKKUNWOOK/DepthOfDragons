@@ -198,7 +198,7 @@ public class LobbyManager : MonoBehaviour
         if (_selectedSlotIndex != -1 && _isCharacterCreated[_selectedSlotIndex])
         {
             Debug.Log($"게임 시작: {_selectedSlotIndex + 1}번 캐릭터");
-            SceneManager.LoadScene("BravemarchScene");
+            SceneManager.LoadScene("DungeonF1Scene");
         }
     }
 

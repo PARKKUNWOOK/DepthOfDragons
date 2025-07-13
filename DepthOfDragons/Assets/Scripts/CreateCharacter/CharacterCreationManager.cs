@@ -186,7 +186,9 @@ public class CharacterCreationManager : MonoBehaviour
 
         //비동기 Firebase 저장 시작
         CharacterData? characterData = null;
-        foreach (var kvp in CharacterDataManager.Instance.GetType().GetField("_characterDataDict", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(CharacterDataManager.Instance) as Dictionary<int, CharacterData>)
+        foreach (var kvp in CharacterDataManager.Instance.GetType()
+            .GetField("_characterDataDict", BindingFlags.NonPublic | BindingFlags.Instance)
+            .GetValue(CharacterDataManager.Instance) as Dictionary<int, CharacterData>)
         {
             if (kvp.Value.Class == _selectedClassName)
             {
@@ -203,6 +205,7 @@ public class CharacterCreationManager : MonoBehaviour
 
         var dbRef = FirebaseDatabase.DefaultInstance.RootReference;
         string slotPath = $"Users/{uid}/Slot{_selectedSlotIndex}";
+        string classPath = $"{slotPath}/{_selectedClassName}";
 
         // 1단계: NickName과 Class 저장
         Dictionary<string, object> baseInfo = new Dictionary<string, object>
@@ -210,7 +213,6 @@ public class CharacterCreationManager : MonoBehaviour
             { "NickName", nickName },
             { "Class", _selectedClassName }
         };
-
         dbRef.Child(slotPath).UpdateChildrenAsync(baseInfo);
 
         // 2단계: 능력치 저장
@@ -224,14 +226,14 @@ public class CharacterCreationManager : MonoBehaviour
             { "Gold", characterData.Value.StartGold },
             { "Attack", characterData.Value.StartAttack }
         };
-
-        string classPath = $"{slotPath}/{_selectedClassName}";
         dbRef.Child(classPath).UpdateChildrenAsync(classData);
 
         // 3단계: 스킬 저장
         Dictionary<string, object> skillDict = new Dictionary<string, object>();
 
-        foreach (var kvp in CharacterSkillDataManager.Instance.GetType().GetField("_skillDataDict", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(CharacterSkillDataManager.Instance) as Dictionary<int, CharacterSkillData>)
+        foreach (var kvp in CharacterSkillDataManager.Instance.GetType()
+            .GetField("_skillDataDict", BindingFlags.NonPublic | BindingFlags.Instance)
+            .GetValue(CharacterSkillDataManager.Instance) as Dictionary<int, CharacterSkillData>)
         {
             int skillKey = kvp.Key;
             CharacterSkillData skillData = kvp.Value;
@@ -245,7 +247,29 @@ public class CharacterCreationManager : MonoBehaviour
                 skillDict[skillKey.ToString()] = skillData.StartLevel;
             }
         }
-
         dbRef.Child($"{classPath}/Skills").SetValueAsync(skillDict);
+
+        // 4단계: 인벤토리 저장
+        Dictionary<string, object> inventoryData = new Dictionary<string, object>();
+        for (int i = 1; i <= 50; i++)
+        {
+            inventoryData[$"InventorySlot{i}"] = "NO";
+        }
+        dbRef.Child($"{classPath}/Inventory").UpdateChildrenAsync(inventoryData);
+
+        // 5단계: 아이템,스킬 퀵슬롯 저장
+        Dictionary<string, object> itemQuickSlotData = new Dictionary<string, object>();
+        for (int i = 1; i <= 6; i++)
+        {
+            itemQuickSlotData[$"ItemQuickSlot{i}"] = "NO";
+        }
+        dbRef.Child($"{classPath}/ItemQuickSlot").UpdateChildrenAsync(itemQuickSlotData);
+
+        Dictionary<string, object> skillQuickSlotData = new Dictionary<string, object>();
+        for (int i = 1; i <= 5; i++)
+        {
+            skillQuickSlotData[$"SkillQuickSlot{i}"] = "NO";
+        }
+        dbRef.Child($"{classPath}/SkillQuickSlot").UpdateChildrenAsync(skillQuickSlotData);
     }
 }
