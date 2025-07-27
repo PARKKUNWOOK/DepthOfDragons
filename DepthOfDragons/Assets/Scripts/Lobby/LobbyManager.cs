@@ -27,6 +27,8 @@ public class LobbyManager : MonoBehaviour
 
     private Queue<Action> _mainThreadQueue = new Queue<Action>();
 
+    private string[] _cachedClassNames = new string[4];
+
     private void Start()
     {
         _characterSlots = GameObject.Find("CharacterSlots");
@@ -127,6 +129,8 @@ public class LobbyManager : MonoBehaviour
                             character.transform.localPosition = Vector3.zero;
                             character.transform.localRotation = Quaternion.identity;
                         });
+
+                        _cachedClassNames[index] = charClass;
                     }
                 }
             });
@@ -198,6 +202,10 @@ public class LobbyManager : MonoBehaviour
         if (_selectedSlotIndex != -1 && _isCharacterCreated[_selectedSlotIndex])
         {
             Debug.Log($"게임 시작: {_selectedSlotIndex + 1}번 캐릭터");
+
+            PlayerPrefs.SetInt("SelectedSlotIndex", _selectedSlotIndex);
+            PlayerPrefs.SetString("SelectedClass", _cachedClassNames[_selectedSlotIndex]);
+
             SceneManager.LoadScene("DungeonF1Scene");
         }
     }
